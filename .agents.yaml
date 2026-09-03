@@ -1,0 +1,7 @@
+sources:
+  - name: agents-md
+    path: .
+modules:
+  - core
+  - principles
+  - stage-build
