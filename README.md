@@ -9,9 +9,9 @@ Every repo has an `AGENTS.md` telling coding agents how to work there. This repo
 In a repo you want to manage:
 
 ```
-agents init --source https://github.com/bensyverson/agents-md --with core,principles,stage-build
+agents init github.com/bensyverson/agents-md   # enables the defaults in source.yaml
 agents list                 # what this source offers, * on what's enabled
-agents add go               # enable another module
+agents add stage-build go   # a stage and a stack on top
 agents update               # move the pin and see what changed in the rules
 ```
 
