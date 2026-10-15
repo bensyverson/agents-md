@@ -1,5 +1,11 @@
 # 2026-10-10 — Right-sizing delegation: agents per job, not agents per leaf
 
+> **Incorporated 2026-10-15** into `modules/delegation.md` (3326955), with changes. The
+> chain rule holds only as far as a session allows. The widened bundling rule is folded
+> into the roster bullet, and "default to fewer agents" is left to the cost line. The
+> template's `<ttl>` is dropped. The `modules/jobs.md` forward link is declined: a
+> module must not reference another, since a repo may enable one without the other.
+
 Feedback on `modules/delegation.md` (and the parts of `modules/jobs.md` it leans on) from a
 managed repo, a cross-platform Swift package. Nothing here is decided; it is a proposal for
 the next review of the shared rules.
