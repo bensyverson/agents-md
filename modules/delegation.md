@@ -17,22 +17,22 @@ Every rule here was paid for. Five hold even if you read nothing else:
 ## What to delegate
 
 - **Delegate a sub-problem that needs no user interaction**, has clear success criteria, takes multiple steps, and involves no design decisions.
-- **Keep on the main thread** anything that is a design decision, a question for the user, a single tool call, or a chain of sequential dependencies.
+- **Keep on the main thread** a design decision, a question for the user, or a single tool call. **A chain of dependent leaves goes to one agent, in order, as far as a session allows** — not one agent per link.
 - **Read across every open tree before dispatching**, not just the one `job orient` pointed at — sibling trees that aren't blocked are parallel work that doesn't announce itself.
 - **Check a leaf's premise before you delegate it.** A leaf can dissolve on contact — the problem is already solved, or the plan moved past it — and an agent will build what it is told regardless.
 - **Match the model to the failure-mode stakes, not to how mechanical the task looks.** Fail-closed wiring reads like plumbing and isn't. Which tiers exist and which one the main thread keeps is a harness fact — `project/agents/harness.md`, Models.
 
 ## Carving the work
 
-- **Fanning out is a decision, not a default.** A worktree stops one agent's red tests from breaking another's build; it does nothing about merge conflicts. A fan-out costs a brief, a worktree and an integration per agent, so small or contended work is faster serial.
+- **Fanning out is a decision, not a default.** A worktree stops one agent's red tests from breaking another's build; it does nothing about merge conflicts. A fan-out costs, per agent, a brief, a worktree and its first build, a suite run, and an integration with a full-diff review. Weigh every split against that, not against zero.
 - **Map the file surface of every candidate leaf before you dispatch anything.** Different files parallelize provably; the same file in distant regions usually applies but is not guaranteed; the same function or region is a genuine conflict.
+- **Carve into a roster of agents, not a list of leaves.** Group leaves by the files they own, then merge groups that share context (subsystem, docs, test suite) until each agent holds about a session of work. A leaf too small to pay for its own agent rides with a neighbor. Record the roster (agent → leaves, in order) as a note on the container.
 - **Parallelize only the disjoint set and serialize the rest.** A carve that leaves most leaves serial is a normal outcome, not a failure.
 - **For a contended file, carve the contention out before dispatching**, in this order of preference:
   - **Route each agent's additions into a new file of its own.** Same package, different files — it merges cleanly, and it works for additive work only.
   - **Pre-carve the shared seam** in one serial commit up front that creates the insertion points, then fan out. This is the general answer to a same-region collision.
   - **Reserve the file to a single writer**, and tell the others to code against its interface and describe the line they need instead of writing it. The cheapest single writer is the integrator: agents return the exact text as an *integration note* and it is applied at merge time — README rows, a one-line wiring call.
 - **Tell every agent which files another agent owns and what not to build.** An unstated boundary is not a boundary.
-- **One agent carries several leaves when they live in the same files** — merge cost, not task count, decides the split. Agents are assigned by file ownership; leaves are units of work.
 - **Carving occasionally mints a new leaf for a piece of a task, but rarely** (`job split`). Prefer it to quietly widening one leaf's scope, and don't let the carve become a replan.
 
 ## Workflow
@@ -65,9 +65,9 @@ Every rule here was paid for. Five hold even if you read nothing else:
 Every prompt carries this boilerplate; each line was paid for.
 
 ```
-You are working in worktree <abs path> on leaf <id>. Identity: --as <name>.
+You are working in worktree <abs path> on leaves <id>, <id>, … in this order. Identity: --as <name>.
 Sync first: git merge --ff-only main (if it fails, git rebase main) — as separate calls.
-Jobs DB: always pass --db <abs path>/.jobs.db. Claim: job claim <id> --as <name>.
+Jobs DB: always pass --db <abs path>/.jobs.db. Claim each: job claim <id> --as <name>.
 HARNESS: read project/agents/harness.md — sandbox, $TMPDIR and worktree isolation.
 Split compound commands into plain calls and use the Write tool for file bodies.
 Do not cd into the main checkout. Do not commit. Do not run job done.
@@ -78,7 +78,7 @@ DO NOT BUILD: <explicit exclusions>; <files owned by other agents>
 TDD: red first; if a new test is green on first run, say so — that is a claim about rigor.
 
 Your report must include:
-1. A summary of what changed and why — not the diff; the branch carries it.
+1. Per leaf: what changed and why, and whether its criteria pass — not the diff; the branch carries it.
 2. Every new file, by path.
 3. Whether the suite passed and which command you ran.
 4. The worktree path and its branch name.
