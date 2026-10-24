@@ -31,6 +31,13 @@ seeds: [project/gotchas.md]
 
 **Local rulings.** A repo-local ruling, or an override of a shared rule, lives in the project-owned head of `AGENTS.md`, above the generated regions — say plainly that it overrides, and link a dated project doc for the why.
 
+## A session
+
+- **Start from the handoff doc in `project/`, if the last session left one, and `job orient`.** A handoff is current only if nothing has been committed since it (`git log` after its date); an older one is history, not a starting point. A handoff the user pastes wins.
+- **Unless the user says they're around, assume they aren't.** Make the call yourself when it's safe and a two-way door, queue the rest, and report every decision at the end. While they're around, bring questions as they come up, including ones an agent raises mid-flight.
+- **Before starting, say what needs the user's eyes.**
+- **The session ends at the user's budget, or when your context passes 40%, whichever comes first.** Then integrate what's in flight, persist what the next session needs in the repo rather than memory, and write the handoff. Where the repo delegates, `project/agents/delegation.md` covers how.
+
 ## Git
 
 - Offer to commit when a unit of work is complete and accepted. Rebase onto upstream; ask on real conflicts, explaining the conflict in plain terms first.
