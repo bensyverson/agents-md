@@ -44,6 +44,10 @@ The main thread runs the top tier; subagents run Opus — judgment calls, conten
 
 A backgrounded process is reaped when the session ends, so a server meant to outlive it must be detached (`nohup … >/dev/null 2>&1 & disown`). Never clean up with `pkill -f <pattern>`: the pattern matches other agents' processes and the shared dev server in the main checkout, which then goes down silently. Kill by port (`lsof -ti :<port> | xargs kill`) or by pid. `go run` execs a compiled binary from a temp path, so a `pkill -f` on the source pattern misses the process actually holding the port, and you keep talking to a stale server. A wait loop that polls `pgrep -f <pattern>` never ends: the pattern matches the loop's own command line. Wait on a pid or on an output file.
 
+### Your context fill
+
+Run `contextfill` ([bensyverson/contextfill](https://github.com/bensyverson/contextfill)) to read how full your context window is; `contextfill --agents` adds each subagent's own fill. That is the number the delegation guide's 40% line is measured in. A subagent's completion notification reports cumulative tokens, not its fill, so don't judge the line from it. Where a PostToolUse hook runs `contextfill hook`, the reading also arrives after every commit, a subagent's included.
+
 ### The shell
 
 When the shell is zsh, `$VAR` is not word-split, so `git commit -- $FILES` passes one path made of every name. Use an array, or list the paths.
