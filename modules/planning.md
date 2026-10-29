@@ -30,8 +30,16 @@ In the description, prose, typically a few short paragraphs; it needs no heading
 - **Open questions.** What the leaf must settle, and which of those are the agent's call and which the user's.
 - **Risks.** What could make it harder than it looks, or dissolve it entirely.
 - **How, only when it earns its place.** Include an approach when it wouldn't be obvious to a capable agent, or when there is a known preference or decision about the implementation ("pure Go, so the binary stays static"; "extend the existing parser rather than adding a second"). Name the approach and its reason in a sentence and leave the code to the builder. Implementation blocks, type definitions and function signatures don't belong in a leaf: they are decided before anyone has touched the problem, they go stale as soon as the code moves, and they turn the builder into a typist.
-- **Criteria** (attached with `--criterion`): checkable sentences about behavior, each naming the evidence that will show it: a test, a live run, a screenshot, a report. "Works well" is not a criterion.
+- **Criteria:** checkable sentences about behavior, each naming the evidence that will show it: a test, a live run, a screenshot, a report. "Works well" is not a criterion.
 - **`blockedBy`**, when the order is real.
+
+## Writing the `tasks:` block
+
+- **Write every description as a block scalar, `desc: |`.** A plain scalar folds its lines and breaks on a colon followed by a space; a block keeps paragraphs and needs no quoting. Inside it, a blank line separates paragraphs.
+- **The leaf's elements map to fields.** Why, what, decided, seams, scope, open questions, risks and how go in `desc`; criteria in `criteria:`; order in `blockedBy`, pointing at a `ref` rather than a title, since titles get edited; a pending choice gets `labels: [decision]`. `job schema` is the grammar.
+- **A stage's own definition of done is a leaf**, usually the eval or demo that closes it, carrying the stage's criteria. A parent closes itself when its last child does, so criteria that live only in the prose never get checked.
+- **Only the first `tasks:` block in a file is imported**, so keep examples out of the plan doc.
+- **Import is a one-time copy.** Afterward the tracker is the plan: change a leaf with `job edit`, not the YAML. Above the block, note that it was imported, the date and the parent id, so a reader knows where the current version lives. Detail placeholder leaves with `job edit -F`; put genuinely new work in a new dated doc and load it with `job import --parent <id>`.
 
 ## Not every leaf is code
 
