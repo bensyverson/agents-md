@@ -4,19 +4,23 @@ when: Before writing a plan, importing a `tasks:` block, or detailing the leaves
 ---
 # Planning
 
-**Write the leaf you would want to receive if you were the one building it: rich enough to help you understand the problem, flexible enough to give you trust and autonomy.**
+A Jobs plan is a Markdown file which carries prose and a YAML block in `job schema` format. Anytime you need to take on a substantial amount of work that may stretch beyond one session, create a plan.
+
+Typically, a plan is stored as a dated doc under `project/`. The prose at the top holds what spans leaves: the goal, the architecture, the order and its reasons, the decisions that bind several leaves. The `tasks:` block carries the same plan but staged for work; each leaf holds what one piece of work needs, on its own.
+
+## Writing a good plan
+
+**A leaf restates what it needs; links are for depth.** Agents will sometimes see leaves in isolation, so don’t assume the implementing agent will understand the surrounding context. If there’s necessary background, restate the substance in a sentence or two, then link to the section or leaf directly.
 
 A plan is read one leaf at a time, by agents arriving with fresh context, through `job orient` and `job claim`. Those show the leaf (its description, criteria and notes), not the doc it came from, so as far as the agent doing the work can tell, the leaf is the plan. `project/agents/jobs.md` covers the tracker's mechanics and how big a leaf is; this file covers what goes in one.
 
-## Two depths
+**Write the leaf you would want to receive if you were the one building it: rich enough to help you understand the problem, flexible enough to give you trust and autonomy.**
 
-- **A plan is a dated doc under `project/` and the `tasks:` block it carries: the same plan at two depths.** The prose holds what spans leaves: the goal, the architecture, the order and its reasons, the decisions that bind several leaves. Each leaf holds what one piece of work needs, on its own.
-- **A leaf restates what it needs; links are for depth.** "See the plan's stage 2 section" on its own sends the agent hunting and leaves `orient` showing a title. Restate the substance in a sentence or two, then link the section that rules on it.
-- **A title alone is a placeholder, not a leaf.** If you can't yet say why a leaf exists and what done looks like, that is real uncertainty: say so in the description (see Honest uncertainty) rather than leaving it blank.
+## What a leaf should carry
 
-## What a leaf carries
+First, a clear, descriptive title.
 
-Prose, typically a few short paragraphs; it needs no heading per element. Roughly in this order:
+In the description, prose, typically a few short paragraphs; it needs no heading per element. Roughly in this order:
 
 - **Why.** The goal it serves, what it unblocks, and who or what is waiting on it. This is what lets an agent make good calls in the cases the description doesn't name.
 - **What.** The outcome: the behavior, artifact or answer that exists when it's done, described from the outside.
