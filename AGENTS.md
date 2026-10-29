@@ -14,7 +14,7 @@ You are working on `agents-md`, the shared house rules for coding agents: the ma
 
 This file is itself rendered from these modules by the tool (`agents sync` here must always be a no-op) — the regions below are what every managed repo receives.
 
-<!-- agents:begin core@90f3ba -->
+<!-- agents:begin core@1ab9e6 -->
 ## Working rules
 
 **Understand the why.** If the goal behind a request isn't clear, ask before solving — beware the XY problem.
@@ -50,7 +50,7 @@ This file is itself rendered from these modules by the tool (`agents sync` here 
 - **Start from the handoff doc in `project/`, if the last session left one, and `job orient`.** A handoff is current only if nothing has been committed since it (`git log` after its date); an older one is history, not a starting point. A handoff the user pastes wins.
 - **Unless the user says they're around, assume they aren't.** Make the call yourself when it's safe and a two-way door, queue the rest, and report every decision at the end. While they're around, bring questions as they come up, including ones an agent raises mid-flight.
 - **Before starting, say what needs the user's eyes.**
-- **The session ends at the user's budget, or when your context passes 40%, whichever comes first.** Then integrate what's in flight, persist what the next session needs in the repo rather than memory, and write the handoff. A session that delegates begins wrapping up sooner, at 25%; `project/agents/delegation.md` covers it.
+- **Continue working until your context passes the limit, or you address every open task and issue.** At 25%, the main-thread agent should integrate what's in flight, persist what the next session needs in the repo rather than memory, and write the handoff. The main thread agent should read `project/agents/delegation.md` at the session start.
 
 ## Git
 
