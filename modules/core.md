@@ -37,7 +37,7 @@ seeds: [project/gotchas.md]
 - **On the main thread, read `project/agents/delegation.md` in full before you begin, so whether to delegate is a choice, not a default.** A subagent skips this: its brief is its scope, and it doesn’t delegate further.
 - **Unless the user says they're around, assume they aren't.** Make the call yourself when it's safe and a two-way door, queue the rest, and report every decision at the end. While they're around, bring questions as they come up, including ones an agent raises mid-flight.
 - **Before starting, say what needs the user's eyes.**
-- **Continue working if there’s more to be done, but wrap up once you cross your context limit.** The main thread should wrap after passing 25%; subagents should prepare to hand over their work after passing 40% (check using `contextfill` if available). Don't wrap without checking your context level.
+- **Keep working while there's work; once past your context line, start nothing new.** The main thread's line is 25%, a subagent's 40% (read with contextfill; never estimate). The line is where wrapping up begins: finishing what's in flight and handing off happen after it, however far past it that takes. A delegating main thread: delegation.md ▸ Carving the work.
 
 ## Git
 
