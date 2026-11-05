@@ -19,6 +19,8 @@ seeds: [project/gotchas.md]
 
 **Scripts.** Analysis tooling goes in `scripts/` so it can be re-run — check there before writing one.
 
+**Shell variables.** Never store a command or a list of arguments in a plain shell variable. zsh doesn't split `$VAR` into words, so `git commit -- $FILES` passes one path made of every name. Use a function or an array, or write it out. This applies on remote machines too.
+
 **Critique before declaring done.** Re-read the original request: is the need actually met? Do lint and tests pass? Are docs updated? What would an expert flag? Fix serious flaws before reporting.
 
 **Tidiness.** No stray files in the repo root; delete transients, and file valuable artifacts (reports, scripts) where they belong.

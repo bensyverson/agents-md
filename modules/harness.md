@@ -47,7 +47,3 @@ A backgrounded process is reaped when the session ends, so a server meant to out
 ### Your context fill
 
 Run `contextfill` ([bensyverson/contextfill](https://github.com/bensyverson/contextfill)) to read how full your context window is; `contextfill --agents` adds each subagent's own fill. That is the number the delegation guide's 40% line is measured in. A subagent's completion notification reports about the same figure, but only once the agent stops; watch a running agent with `contextfill --agents`. Where a PostToolUse hook runs `contextfill hook`, the reading also arrives after every commit, a subagent's included.
-
-### The shell
-
-When the shell is zsh, `$VAR` is not word-split, so `git commit -- $FILES` passes one path made of every name. Use an array, or list the paths.

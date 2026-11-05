@@ -14,7 +14,7 @@ You are working on `agents-md`, the shared house rules for coding agents: the ma
 
 This file is itself rendered from these modules by the tool (`agents sync` here must always be a no-op) — the regions below are what every managed repo receives.
 
-<!-- agents:begin core@cfc560 -->
+<!-- agents:begin core@cfc86c -->
 ## Working rules
 
 **Understand the why.** If the goal behind a request isn't clear, ask before solving — beware the XY problem.
@@ -32,6 +32,8 @@ This file is itself rendered from these modules by the tool (`agents sync` here 
 **Don't tour the codebase.** Start from the README and the docs (an Explore agent is fine); dig only where the task leads — once you have a specific need, read as much as that need requires.
 
 **Scripts.** Analysis tooling goes in `scripts/` so it can be re-run — check there before writing one.
+
+**Shell variables.** Never store a command or a list of arguments in a plain shell variable. zsh doesn't split `$VAR` into words, so `git commit -- $FILES` passes one path made of every name. Use a function or an array, or write it out. This applies on remote machines too.
 
 **Critique before declaring done.** Re-read the original request: is the need actually met? Do lint and tests pass? Are docs updated? What would an expert flag? Fix serious flaws before reporting.
 
