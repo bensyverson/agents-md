@@ -1,5 +1,6 @@
 ---
 kind: file
+ignore: [.claude/worktrees/]
 when: The first time a tool call is refused or denied, and before briefing a subagent
 ---
 # Harness facts

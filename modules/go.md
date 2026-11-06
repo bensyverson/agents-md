@@ -1,6 +1,14 @@
+---
+pre-commit:
+  - go fix -diff ./...
+  - 'u=$(go list -f ''{{.Dir}}'' ./... | xargs gofmt -l); [ -z "$u" ] || { echo "pre-commit: not gofmt-clean, run gofmt -w .:" >&2; echo "$u" >&2; exit 1; }'
+  - go vet ./...
+  - go mod tidy -diff
+  - go test ./...
+---
 ## Go
 
-- Before committing: `go fix ./...`, `gofmt -w .`, `go vet ./...` and `go mod tidy`, then the tests you touched. `go fix` converges over several passes — "re-run to apply more" is progress, not failure; re-run until clean before editing code.
+- Before committing: `go fix ./...`, `gofmt -w .`, `go vet ./...` and `go mod tidy`, then the tests you touched. `go fix` converges over several passes — "re-run to apply more" is progress, not failure; re-run until clean before editing code. The pre-commit hook `agents hooks install` writes checks all four without rewriting anything, then runs the tests.
 - **Run `go fix ./...` before staging, not just before committing.** A pre-commit hook that re-stages `gofmt` rewrites will not re-stage `go fix` rewrites: a file `go fix` changed that is already gofmt-clean commits unfixed, and your working tree quietly diverges from what you committed.
 - **Tests that share a database need `-p 1` and a database per agent.** `go test ./...` runs packages in parallel, so packages that seed the same fixtures and truncate the same tables produce a wall of unrelated-looking failures that survives a re-run and reads as a real regression.
 - **Schema changes are numbered migrations** in the project's migrations directory (the head names it). Never run one by hand — the binary migrates when it starts or opens the database and records the version; the next run applies it. Read the full note history on the task (`job show <id>`) before writing schema; it is the most expensive thing to change.

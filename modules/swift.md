@@ -1,7 +1,13 @@
+---
+pre-commit:
+  - 'command -v swiftformat >/dev/null || { echo "pre-commit: swiftformat is not installed; brew install swiftformat" >&2; exit 1; }'
+  - swiftformat . --lint
+  - if [ -f Package.swift ]; then swift test --quiet; fi
+---
 ## Swift
 
 - Keep DocC coverage at 100% for any code you add or change.
-- Before committing: `swiftformat . --lint` (then `swiftformat .` if needed) and the full suite (`swift test --quiet`, or the project's `xcodebuild` invocation named in the head). Both should be pre-commit hooks; if the repo has none, run them yourself.
+- Before committing: `swiftformat . --lint` (then `swiftformat .` if needed) and the full suite (`swift test --quiet`, or the project's `xcodebuild` invocation named in the head). The pre-commit hook `agents hooks install` writes runs both, the suite only for a package; an app adds its `xcodebuild` line below the hook's generated region. If the repo has no hook, run them yourself.
 - Swift 6 strict concurrency; resolve warnings as you go. No `nonisolated(unsafe)` without permission. Prefer async/await.
 - Prefer `struct` for data; `final class` for durable shared-reference objects; `actor` for shared mutable state or a single access point (DB connection, queue).
 - New types conform to `Friendly` (`Codable & Hashable & Equatable & Sendable`) even without current plans to serialize or compare.

@@ -1,5 +1,6 @@
 ---
 kind: file
+ignore: [.claude/worktrees/]
 when: Before dispatching any subagent
 ---
 # Delegating to subagents
