@@ -10,4 +10,4 @@ seeds: [project/backlog.md]
 - **A wrong documented cause is worse than none** — it stops the next reader looking. Correcting one means saying it was wrong, not quietly rewording.
 - **Open the note before you cite it**, and check whether a recorded ruling has been superseded before passing it on.
 - **Every repo has a README; if none exists, write one (delegate it if you can).** It is tight: the project's name and a one-line description a non-technical reader understands (6th-grade reading level); one short paragraph of what it is; how to install or consume it; a crisp Quick Start with an example or two; links out to the specific docs for anything more; authorship and license at the end.
-- **The head of `AGENTS.md` lists where the docs live; keep that list current.**
+- **The head of `AGENTS.md` lists where the docs live; keep that list current with documentation, but exclude project/ docs such as plans and research.**
