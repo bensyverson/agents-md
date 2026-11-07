@@ -14,7 +14,7 @@ You are working on `agents-md`, the shared house rules for coding agents: the ma
 
 This file is itself rendered from these modules by the tool (`agents sync` here must always be a no-op) — the regions below are what every managed repo receives.
 
-<!-- agents:begin core@f42a22 -->
+<!-- agents:begin core@c84939 -->
 ## Working rules
 
 **Understand the why.** If the goal behind a request isn't clear, ask before solving — beware the XY problem.
@@ -47,7 +47,7 @@ This file is itself rendered from these modules by the tool (`agents sync` here 
 
 **Local rulings.** A repo-local ruling, or an override of a shared rule, lives in the project-owned head of `AGENTS.md`, above the generated regions — say plainly that it overrides, and link a dated project doc for the why.
 
-**American English.* Write American English everywhere; code, comments, docs, commit messages, memories: color, behavior, center, -ize, labeled, gray, catalog. Keep an external API's own spelling as-is (e.g. Apple's `isCancelled`).
+**American English.** Write American English everywhere; code, comments, docs, commit messages, memories: color, behavior, center, -ize, labeled, gray, catalog. Keep an external API's own spelling as-is (e.g. Apple's `isCancelled`).
 
 ## A session
 
