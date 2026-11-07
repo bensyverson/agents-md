@@ -5,3 +5,4 @@ modules:
   - core
   - principles
   - stage-build
+  - review

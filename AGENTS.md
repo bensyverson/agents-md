@@ -91,3 +91,13 @@ Defaults, not laws. When we break one, we do it consciously and say so in the re
 
 Pre-launch, zero users, no existing data. Never spend effort on backward compatibility — assume every use is green-field — but flag breaking changes and update the affected tests. Be ambitious: if a feature is important, build it fully now rather than an MVP; balance that against over-engineering and future-proofing.
 <!-- agents:end stage-build -->
+
+<!-- agents:begin index@c4987f -->
+## Situational instructions
+
+These files carry instructions for specific situations. When one applies, read the file before acting and follow it.
+
+| Situation | File |
+|---|---|
+| Before handoff, when a job container closes, and before building on unreviewed code | `project/agents/review.md` |
+<!-- agents:end index -->
