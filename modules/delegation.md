@@ -65,7 +65,7 @@ Every rule here was paid for. Five hold even if you read nothing else:
 - **Gitignored files don't exist in a worktree** — `.jobs.db`, `local/`, dev databases. Pass every such path absolute, and never "fix" a missing one by re-initializing it.
 - **Parallel agents share one scratch directory.** Prefix every scratch file with your leaf id (`kdrp5-commitmsg.txt`), and read back any file before you pass it to `-F`; a generic name is clobbered without warning.
 - **Restate anything the agent cannot proceed without.** A leaf description the agent can't read is not a brief; load-bearing instructions go in the prompt or a committed file.
-- **Keep the sync preamble in every prompt** (`git merge --ff-only main`, falling back to `git rebase main`); it makes a missed commit survivable. A clean base report may only describe state *after* syncing, so it isn't evidence of a clean spawn.
+- **Keep the sync step in every agent's start** (`git merge --ff-only main`, falling back to `git rebase main`; `subagent.md` ▸ Start carries it); it makes a missed commit survivable. A clean base report may only describe state *after* syncing, so it isn't evidence of a clean spawn.
 - **Don't take the work back with `git apply`.** It is atomic and prints per-file "Applied cleanly" right up to the moment it discards everything, and a partial `-3` leaves a half-applied tree; merge the branch instead (step 7).
 - **Parallel migrations use placeholder numbers** (`900_`, `901_`), renumbered sequentially at integration with the placeholder comment stripped. Never let a placeholder reach a persistent dev DB. Safe only where the migration runner records one row per version rather than a high-water mark; check before relying on it.
 - **The pre-commit hook must never recurse into `.claude/worktrees/`** — a running agent's half-written file will fail the main thread's unrelated commit. If you add a check to the hook, check whether it recurses; skipping dot-directories is what the Go toolchain itself does.
@@ -74,34 +74,20 @@ Every rule here was paid for. Five hold even if you read nothing else:
 
 ## Briefing template
 
-Every prompt carries this boilerplate; each line was paid for.
+The rules every subagent follows (sync, `job` identity, harness, TDD, the report's shape) live in `project/agents/subagent.md`, which the agent reads first. A brief carries only what changes per agent, plus the lines that are irreversible to break or that bring back the most, so they can't be skipped. Each line was paid for.
 
 ```
-You are working in worktree <abs path> on leaves <id>, <id>, … in this order. Identity: --as <name>.
-Sync first: git merge --ff-only main (if it fails, git rebase main) — as separate calls.
-Jobs DB: always pass --db <main checkout's abs path>/.jobs.db — never the worktree's copy.
-Claim each for longer than your builds and test runs take: job claim <id> 2h --as <name>.
-Release your claims when you report: job release <id> --as <name>.
-HARNESS: read project/agents/harness.md — sandbox, $TMPDIR and worktree isolation.
-Split compound commands into plain calls and use the Write tool for file bodies.
-Do not cd into the main checkout. Do not commit. Do not run job done.
-Never git stash: every worktree shares one stash stack.
-Never change product behavior or appearance to make a test, probe or capture pass;
-report the conflict instead.
-A duration that spans a machine sleep is not a hang: check whether the machine
-slept before reporting anything as slow.
+You are <name>, on leaves <id>, <id>, … in this order, in worktree <abs path>.
+Identity: --as <name>. Jobs DB: <main checkout's abs path>/.jobs.db.
+First read project/agents/subagent.md; its rules bind you.
+Never commit, run job done, git stash, cd into the main checkout, or change
+product behavior to make a test pass.
 
 TASK: <goal, in one paragraph>
 VERIFIED FACTS: <real counts, timestamps, invariants that must hold — not just the goal>
 DO NOT BUILD: <explicit exclusions>; <files owned by other agents>
-TDD: red first; if a new test is green on first run, say so — that is a claim about rigor.
 
-Your report must include:
-1. Per leaf: what changed and why, and whether its criteria pass — not the diff; the branch carries it.
-2. Every new file, by path.
-3. Whether the suite passed and which command you ran.
-4. The worktree path and its branch name.
-5. A proposed commit message: a subject completing "This commit…" (present-tense verb first), a body that says why.
-6. DEVIATIONS from this brief, and why.
-7. WHAT IN THIS BRIEF IS WRONG? Answer explicitly. Briefs contain errors at a rate that makes this the cheapest check available; if a seam does not work the way this describes, say so rather than working around it. Fix minor bugs as you encounter them, and report the major ones.
+End your report with DEVIATIONS and WHAT IN THIS BRIEF IS WRONG?
 ```
+
+Add a line only for what this agent needs beyond `subagent.md`: an integration note you want back, a TDD exception, a protocol or schema rule the work must respect.

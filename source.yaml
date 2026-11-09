@@ -1,1 +1,1 @@
-defaults: [core, principles, docs, evidence, jobs, planning, delegation, harness, review]
+defaults: [core, principles, docs, evidence, jobs, planning, delegation, harness, review, subagent]
